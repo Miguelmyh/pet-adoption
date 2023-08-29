@@ -1,0 +1,27 @@
+{%extends 'home.html'%} {%block title %}pet{%endblock%} {%block content %}
+<div class="container text-center">
+  <h1 class="display-1 text-center">{{pet.name}}</h1>
+  <ul class="list-unstyled">
+    {%if pet.photo_url%}
+    <div class="for-img">
+      <figure class="figure">
+        <img
+          class="figure-img img-fluid rounded"
+          src="{{pet.photo_url}}"
+          alt="photo" />
+        <figcaption class="figure-caption text-end">
+          {%if pet.notes%} notes: {{pet.notes}} {%endif%}
+        </figcaption>
+      </figure>
+    </div>
+    {%endif%}
+    <li>name: {{pet.name}}</li>
+    {%if pet.age %}
+    <li>age: {{pet.age}}</li>
+    {%endif%}
+    <li>species: {{pet.species}}</li>
+    <li>Available: {{pet.available}}</li>
+  </ul>
+  <a class="btn btn-info btn-lg" href="/pets/{{pet.id}}/edit">Edit pet</a>
+</div>
+{%endblock%}
