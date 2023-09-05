@@ -1,0 +1,62 @@
+{%extends 'base.html' %} {%block title %} User {%endblock%} {%block content %}
+<div class="container">
+  <h1 class="display-1">User details</h1>
+  <ul class="list-group my-4">
+    <li
+      class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      Username:
+      <span class="text text-info">{{user.username}}</span>
+    </li>
+    <li
+      class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      Email:
+      <span class="text text-info">{{user.email}}</span>
+    </li>
+  </ul>
+  <h3 class="label my-2">Feedbacks</h3>
+  {%for feedback in feedbacks%}
+  <div class="card my-4">
+    <div class="card-header">
+      <h5 class="card-title">
+        <a class="link link-primary" href="/feedback/{{feedback.id}}/update"
+          >{{feedback.title}}</a
+        >
+        <form
+          action="/feedback/{{feedback.id}}/delete"
+          method="POST"
+          style="display: inline">
+          {%if feedback.user.username == session['username']%}
+          <button class="btn btn-danger btn-sm">
+            <i class="fa fa-close"></i>
+          </button>
+          {%endif%}
+        </form>
+      </h5>
+    </div>
+    <div class="card-body">
+      <p class="card-text">{{feedback.content}}</p>
+    </div>
+  </div>
+  {%endfor%}
+  <div style="display: flex">
+    <form class="my-4" action="/users/{{user.username}}/feedback/add">
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-success">Add Feedback</button>
+        </div>
+      </div>
+    </form>
+    <form
+      action="/users/{{user.username}}/delete"
+      method="POST"
+      class="my-4 mx-2">
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-danger">Remove User</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+{%endblock%}
